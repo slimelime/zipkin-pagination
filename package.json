@@ -1,13 +1,13 @@
 {
   "name": "zipkin-pagination",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.1",
+  "description": "facilitate zipkin query pagination, as `limit` of API `/zipkin/api/v2/traces` isn't accurate when goes greater than `5000`.",
   "main": "index.js",
   "scripts": {
     "it": "mocha -r test/setup.js --timeout 200000 it/*",
     "test": "mocha -r test/setup.js"
   },
-  "author": "",
+  "author": "louis.suo@myob.com",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.18.0",
