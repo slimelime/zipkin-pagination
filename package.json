@@ -7,6 +7,8 @@
     "it": "mocha -r test/setup.js --timeout 200000 it/*",
     "test": "mocha -r test/setup.js"
   },
+  "keywords": ["zipkin","pagination","limit issue"],
+  "homepage": "https://github.com/MYOB-Technology/zipkin-pagination",
   "author": "louis.suo@myob.com",
   "license": "ISC",
   "dependencies": {
