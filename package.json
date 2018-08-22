@@ -13,6 +13,10 @@
     "limit issue"
   ],
   "homepage": "https://github.com/MYOB-Technology/zipkin-pagination",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MYOB-Technology/zipkin-pagination.git"
+  },
   "author": "louis.suo@myob.com",
   "license": "ISC",
   "dependencies": {
@@ -25,6 +29,11 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-es2015": "^6.24.1",
-    "mocha": "^5.2.0"
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
+    "chai-shallow-deep-equal": "^1.4.6",
+    "mocha": "^5.2.0",
+    "sinon": "^6.1.5",
+    "sinon-chai": "^3.2.0"
   }
 }
