@@ -5,9 +5,8 @@ const axios = require('axios');
 const {zipkinFetch} = require('../src/zipkin-fetch');
 
 const TEST_PAGINATION = 2
-const defaultDuration = 100;
 
-describe('zipkinFetch tests', function() {
+describe('Zipkin fetching tests', function() {
   afterEach(() => {
     sandbox.restore();
   });
@@ -20,7 +19,7 @@ describe('zipkinFetch tests', function() {
           tags: defaultTags,
         }, {parentId: 1}]];
     sandbox.stub(axios, 'get').resolves({data});
-    const res = await zipkinFetch('url', [], 'serviceName')(1, 2)
+    const res = await zipkinFetch('url', [], 'serviceName')(1000, 2000)
     res.should.be.eql(data)
   })
 
@@ -73,7 +72,7 @@ describe('zipkinFetch tests', function() {
         onSecondCall().
         returns({data: page2});
       const res = await zipkinFetch('url', [], 'serviceName', TEST_PAGINATION)(
-        1, 10)
+        1000, 10000)
       res.should.be.eql(r.concat(page1, page2))
 
     })
@@ -109,7 +108,7 @@ describe('zipkinFetch tests', function() {
         onSecondCall().
         returns({data: page2});
       const res = await zipkinFetch('url', [], 'serviceName', TEST_PAGINATION)(
-        1, 10)
+        1000, 10000)
       res.should.be.eql(page1)
     })
 
@@ -128,11 +127,13 @@ describe('zipkinFetch tests', function() {
         returns({data: page1}).
         onSecondCall().throws('error', 'unexpected fetching');
       const res = await zipkinFetch('url', [], 'serviceName', TEST_PAGINATION)(
-        1, 10)
+        1000, 10000)
       res.should.be.eql(page1)
     })
 
 });
+
+const defaultDuration = 100;
 
 const defaultTags = {
   'http.host': 'host',

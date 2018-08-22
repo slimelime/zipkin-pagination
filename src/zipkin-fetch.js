@@ -12,7 +12,7 @@ const spanTimeStamp = r.pipe(r.head, r.prop('timestamp'))
 const zipkinFetch = (
   zipkinUrl, filters, serviceName = 'nginx', pageSize = 1000) => async (
   start, end) => {
-  const iterateQuery = async (start, end, acc) => {
+  const recursiveFetch = async (start, end, acc) => {
     const url = `${zipkinUrl}/zipkin/api/v2/traces?${generateQueryFilter(
       filters)}&limit=${pageSize}&serviceName=${serviceName}&${timespanOf(
       {start, end})}`
@@ -21,15 +21,15 @@ const zipkinFetch = (
     const veryFirst = r.reduce(r.minBy(spanTimeStamp), [{timestamp: Infinity}],
       traces)
     console.log(`traces: ${url} ${traces.length}, from ${start} to ${end}`);
-    const newEnd = Math.floor(spanTimeStamp(veryFirst) / 1000)
+    const newEnd = Math.floor(spanTimeStamp(veryFirst))
     if (traces.length === pageSize && newEnd > start) {
-      return iterateQuery(start, newEnd,
+      return recursiveFetch(start, newEnd,
         r.uniqBy(r.pipe(r.head, r.prop('traceId')))(
           r.concat(acc, traces)))
     }
     return r.uniqBy(r.pipe(r.head, r.prop('traceId')))(r.concat(acc, traces))
   }
-  return iterateQuery(start * 1000, end * 1000, [])
+  return recursiveFetch(start, end, [])
 
 }
 
