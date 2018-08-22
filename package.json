@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha -r test/setup.js --timeout 200000"
+    "it": "mocha -r test/setup.js --timeout 200000 it/*",
+    "test": "mocha -r test/setup.js"
   },
   "author": "",
   "license": "ISC",
